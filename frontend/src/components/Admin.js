@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { serverUrl } from '../common';
 import { Button, TextField } from '@mui/material';
+import DatePicker from 'react-datepicker';  
+import TimePicker from 'react-time-picker';
+import "react-datepicker/dist/react-datepicker.css";
 
 function Admin() {
 
@@ -20,8 +23,8 @@ function Admin() {
         getUsers();
     }, []);
 
-    const [date, setDate] = useState("");
-    const [time, setTime] = useState("");
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState("10:00");
     const [registerGame, setRegisterGame] = useState("");
     const [score, setScore] = useState("");
     const [clubName, setClubName] = useState("");
@@ -32,12 +35,14 @@ function Admin() {
             register_game: registerGame,
             score: score,
             club_name: clubName,
-            total_players: totalPlayers
+            total_players: totalPlayers,
+            date: date,
+            time: time
         }
 
         axios.post(serverUrl + "/add-tour", data)
         .then((res)=>{
-
+            alert("Add tournament success!");
         })
         .catch((err)=>{
 
@@ -72,14 +77,14 @@ function Admin() {
                         </thead>
                         <tbody>
                             {
-                                userList.map((user)=>(
-                                    <tr>
+                                userList.map((user, index)=>(
+                                    <tr key={index}>
                                         <td>{user.first_name}</td>
                                         <td>{user.last_name}</td>
                                         <td>{user.user_name}</td>
                                         <td>{user.player_id}</td>
                                         <td>{user.hp_num}</td>
-                                        <td>{}</td>
+                                        <td>{user.birth_date}</td>
                                         <td>{user.age}</td>
                                         <td>{user.gender}</td>
                                         <td>{user.email}</td>
@@ -129,6 +134,10 @@ function Admin() {
                                 setScore(e.target.value);
                             }}
                         />
+
+                        <DatePicker selected={date} onChange={(d) => {setDate(d);}} dateFormat="MM/dd/yyyy"/>
+
+                        <TimePicker value={time} onChange={(t) => {setTime(t);}} dateFormat="MM/dd/yyyy"/>
                     </div>
                     <div className='row mt-3'>
                         <Button className='col-md-3 m-auto' variant="contained" color="error" onClick={() => {}}>Back</Button>

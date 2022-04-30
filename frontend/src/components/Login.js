@@ -16,7 +16,7 @@ function Login() {
             email: email,
             password: password
         }
-        
+
         axios.post(serverUrl + "/login", data)
         .then((res)=>{
 
@@ -52,7 +52,7 @@ function Login() {
                                         setPassword(e.target.value);
                                     }}
                                 />
-                                <a href='#' className="forget-pwd mt-2">Forget Password?</a>
+                                <a href='/' className="forget-pwd mt-2">Forget Password?</a>
                                 <div className='row mt-3'>
                                     <Button className='col-md-6 m-auto' variant="contained" onClick={() => { onLogin(); }}>Login</Button>
                                 </div>

@@ -29,5 +29,8 @@ let User = new Schema({
     email: {
         type: String
     },
+    birth_date: {
+        type: Date
+    }
 });
 module.exports = mongoose.model('User', User);

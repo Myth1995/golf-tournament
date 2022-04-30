@@ -51,6 +51,17 @@ routes.route('/add-tour').post(function(req, res) {
       });
 });
 
+routes.route('/get-tours').get(function(req, res) {
+  Tournament.find( function (err, datas) {
+    if(err) {
+      console.log("get-tours", err);
+    }
+    else {
+      res.json(datas);
+    }
+  });
+});
+
 app.use('/', routes);
 
 app.listen(PORT, function() {

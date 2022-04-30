@@ -14,5 +14,11 @@ let Tournament = new Schema({
     total_players: {
         type: String
     },
+    date: {
+        type: Date
+    },
+    time: {
+        type: String
+    }
 });
 module.exports = mongoose.model('Tournament', Tournament);

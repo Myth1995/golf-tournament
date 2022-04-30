@@ -25,6 +25,7 @@ function Register() {
     const [password, setPassword] = useState("");
     const [playerID, setPlayerID] = useState("");
     const [hpNum, setHpNum] = useState("");
+    const [birthDate, setBirthDate] = useState(new Date());
     const [age, setAge] = useState("");
     const [gender, setGender] = useState("");
     const [email, setEmail] = useState("");
@@ -37,6 +38,7 @@ function Register() {
             password: password,
             player_id: playerID,
             hp_num: hpNum,
+            birth_date: birthDate,
             age: age,
             gender: gender,
             email: email
@@ -44,8 +46,17 @@ function Register() {
         axios.post(serverUrl + '/add-user', data)
         .then((res)=>{
             if(res.status === 200) {
-                alert("success");
-                return;
+                data.password = '';
+                window.localStorage.first_name = firstName;
+                window.localStorage.last_name = lastName;
+                window.localStorage.user_name = userName;
+                window.localStorage.player_id = playerID;
+                window.localStorage.hp_num = hpNum;
+                window.localStorage.age = age;
+                window.localStorage.gender = gender;
+                window.localStorage.birthDate = birthDate;
+                window.localStorage.email = email;
+                window.location.href = "/profile"
             }
         })
         .catch((err)=>{
@@ -120,19 +131,12 @@ function Register() {
                                         setHpNum(e.target.value);
                                     }}
                                 />
-
-                                {/* <DatePicker  
-                                    selected={ birthDate }  
-                                    onChange={ () => {handleChange(); }}
-                                    name="birthDate"  
-                                    dateFormat="MM/dd/yyyy"  
-                                />   */}
-
+                                
                                 <TextField
                                     id="outlined-age-input"
                                     type="number"
                                     label="Age"
-                                    className='mb-3'
+                                    className='my-3'
                                     value={age}
                                     onChange={(e)=>{
                                         setAge(e.target.value);
@@ -164,6 +168,7 @@ function Register() {
                                         setEmail(e.target.value);
                                     }}
                                 />
+                                <DatePicker selected={birthDate} onChange={(date) => {setBirthDate(date);}} dateFormat="MM/dd/yyyy"/>
                                 <div className='row mt-3'>
                                     <Button className='col-md-4 m-auto' variant="contained" onClick={() => {
                                         window.location.href = "/"

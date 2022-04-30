@@ -145,3 +145,20 @@ button:hover {
     text-align: center;
     border: 1px solid black;
 }
+
+.profile .scoreboard {
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+.profile table thead th {
+    width: 11%;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.profile table tbody td {
+    text-align: center;
+    border: 1px solid black;
+}
