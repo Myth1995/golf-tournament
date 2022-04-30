@@ -134,14 +134,14 @@ button:hover {
     list-style-type: none;
 }
 
-.admin .user-list table thead th {
+.admin table.user-list thead th {
     width: 11%;
     font-size: 12px;
     text-align: center;
     border: 1px solid black;
 }
 
-.admin .user-list table tbody td {
+.admin table.user-list tbody td {
     text-align: center;
     border: 1px solid black;
 }

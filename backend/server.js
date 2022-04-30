@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const User = require('./models/user.model');
+const Tournament = require('./models/tournament.model');
 const routes = express.Router();
 const PORT = 4000;
 
@@ -21,10 +22,10 @@ routes.route('/add-user').post(function(req, res) {
   let user = new User(req.body);
   user.save()
       .then(user => {
-          res.status(200).json({'todo': 'todo added successfully'});
+          res.status(200).json({'user': 'user added successfully'});
       })
       .catch(err => {
-          res.status(400).send('adding new todo failed');
+          res.status(400).send('adding new user failed');
       });
 });
 
@@ -37,6 +38,17 @@ routes.route('/get-users').get(function(req, res) {
       res.json(users);
     }
   });
+});
+
+routes.route('/add-tour').post(function(req, res) {
+  let tournament = new Tournament(req.body);
+  tournament.save()
+      .then(tour => {
+          res.status(200).json({'tour': 'tour added successfully'});
+      })
+      .catch(err => {
+          res.status(400).send('adding new tournament failed');
+      });
 });
 
 app.use('/', routes);

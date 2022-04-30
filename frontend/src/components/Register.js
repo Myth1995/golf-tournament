@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Button, TextField, MenuItem } from '@mui/material';
 import DatePicker from 'react-datepicker';  
-   
+import { serverUrl } from '../common';   
 import "react-datepicker/dist/react-datepicker.css";  
 
 const genderInfo = [
@@ -41,7 +41,7 @@ function Register() {
             gender: gender,
             email: email
         }
-        axios.post('http://127.0.0.1:4000/add-user', data)
+        axios.post(serverUrl + '/add-user', data)
         .then((res)=>{
             if(res.status === 200) {
                 alert("success");
