@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Button } from '@mui/material';
 import Logo from '../assets/img/logo/logo.png';
 import { Navbar, Nav } from 'react-bootstrap';
 
@@ -12,7 +11,7 @@ function Header() {
                     <Navbar expand="lg" className='justify-content-left'>
                         <div className='w-100'>
                             <div className='d-flex flex-row align-items-center'>
-                                <Navbar.Brand href="/" className='mt-3'><img className='logo-img' src={Logo} height={80} alt='logo'/></Navbar.Brand>
+                                <Navbar.Brand href="/" className='mt-3'><img className='logo-img' src={Logo} height={100} alt='logo'/></Navbar.Brand>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" className='toggler bg-light ms-auto' />
                             </div>
                             <Navbar.Collapse color='white' id="basic-navbar-nav" className='mt-3 align-self-end justify-content-start'>

@@ -69,7 +69,10 @@ button:hover {
 }
 
 .header#header {
-    height: 80px;
+    /* height: 80px; */
+    position: fixed;
+    left: 10%;
+    top: 0;
 }
 
 .header .header a.n-link {
@@ -109,4 +112,36 @@ button:hover {
 
 .login .forget-pwd {
     text-align: right;
+}
+
+.admin {
+    padding-top: 10%;
+    height: 100%;
+}
+
+.admin .admin-nav {
+    flex-direction: column;
+    margin: auto 0px;
+    position: fixed;
+}
+
+.admin .admin-nav ul li {
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.admin .admin-nav ul{
+    list-style-type: none;
+}
+
+.admin .user-list table thead th {
+    width: 11%;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.admin .user-list table tbody td {
+    text-align: center;
+    border: 1px solid black;
 }

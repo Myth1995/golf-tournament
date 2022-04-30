@@ -3,12 +3,9 @@ import * as React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Button, TextField, MenuItem } from '@mui/material';
-import { Row, Col } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';  
-import Switch from "react-switch";
    
 import "react-datepicker/dist/react-datepicker.css";  
-import { SettingsSystemDaydreamOutlined } from '@mui/icons-material';
 
 const genderInfo = [
     {
@@ -141,34 +138,22 @@ function Register() {
                                         setAge(e.target.value);
                                     }}
                                 />
-                                <Row>
-                                    {/* <Col md={7}>
-                                        <Chip label="Male/Female" className='col-xs-8' />
-                                    </Col>
-                                    <Col md={5}> */}
-                                    <TextField
-                                        id="outlined-select-currency"
-                                        className='mb-3'
-                                        select
-                                        label="Gender"
-                                        value={gender}
-                                        onChange={(e)=>{
-                                            setGender(e.target.value);
-                                        }}
-                                        // helperText="Please select your currency"
-                                        >
-                                        {genderInfo.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                        {/* <Switch className='col-xs-4' onChange={()=>{
-                                            setGender(!gender);
-                                            console.log(gender);
-                                        }} checked={gender} /> */}
-                                    {/* </Col> */}
-                                </Row>
+                                <TextField
+                                    id="outlined-select-currency"
+                                    className='mb-3'
+                                    select
+                                    label="Gender"
+                                    value={gender}
+                                    onChange={(e)=>{
+                                        setGender(e.target.value);
+                                    }}
+                                    >
+                                    {genderInfo.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
                                 <TextField
                                     id="outlined-email-input"
                                     type="email"

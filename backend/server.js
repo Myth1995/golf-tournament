@@ -28,6 +28,17 @@ routes.route('/add-user').post(function(req, res) {
       });
 });
 
+routes.route('/get-users').get(function(req, res) {
+  User.find( function (err, users) {
+    if(err) {
+      console.log("get-User", err);
+    }
+    else {
+      res.json(users);
+    }
+  });
+});
+
 app.use('/', routes);
 
 app.listen(PORT, function() {
