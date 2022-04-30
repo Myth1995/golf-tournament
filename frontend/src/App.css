@@ -102,11 +102,11 @@ button:hover {
     border: 1px solid #FFFFFF;
 }
 
-.top .input-fields {
+.login .input-fields {
     display: flex;
     flex-direction: column;
 }
 
-.top .forget-pwd {
+.login .forget-pwd {
     text-align: right;
 }

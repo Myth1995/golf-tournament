@@ -2,6 +2,7 @@ import './App.css';
 import * as React from 'react';
 import Header from './components/Header';
 import Login from './components/Login';
+import Register from './components/Register';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './assets/css/bootstrap.min.css';
 import './assets/css/google-icon.css';
@@ -13,7 +14,7 @@ function App() {
         <Header/>
         <Routes>
           <Route path="/" element={<Login/>} />
-          
+          <Route path="/register" element={<Register/>} />
         </Routes>
       </Router>
       <script src="./assets/js/bootstrap.bundle.min.js" type="text/javascript" />
