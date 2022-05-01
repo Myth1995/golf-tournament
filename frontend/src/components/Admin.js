@@ -3,16 +3,18 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { serverUrl } from '../common';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Chip, Box, Grid } from '@mui/material';
 import DatePicker from 'react-datepicker';  
 import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 
 function Admin() {
-
     const [flag, setFlag] = useState(true);
     const [userList, setUserList] = useState([]);
     useEffect(()=>{
+        if(window.localStorage.user_name === "") {
+            window.location.href = "/";
+        }
         async function getUsers() {
             await axios.get(serverUrl + "/get-users")
             .then((res)=>{
@@ -30,15 +32,23 @@ function Admin() {
     const [clubName, setClubName] = useState("");
     const [totalPlayers, setTotalPlayers] = useState("");
 
-    const onTourRegister = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        
+        // if(registerGame === "" || score === "" || clubName === "" || totalPlayers === "" ) {
+        //     alert("Please input all informations!");
+        //     return;
+        // }
         let data = {
-            register_game: registerGame,
-            score: score,
-            club_name: clubName,
-            total_players: totalPlayers,
-            date: date,
-            time: time
+            register_game: formData.get('registerGame'),
+            score: formData.get('score'),
+            club_name: formData.get('clubName'),
+            total_players: formData.get('totalPlayers'),
+            date: date.toLocaleDateString(),
+            time: formData.get('time')
         }
+        console.log(data);
 
         axios.post(serverUrl + "/add-tour", data)
         .then((res)=>{
@@ -53,17 +63,17 @@ function Admin() {
         <section className='admin' id="admin">
             <div className='container m-auto'>
                 <div className='d-flex admin-nav'>
-                    <ul className=''>
-                        <li onClick={ ()=>{
+                    <ul>
+                        {/* <li onClick={ ()=>{
                             setFlag(false);
-                        } }>Tournaments</li>
+                        } }>Register Tournament</li> */}
                         <li onClick={ ()=>{
                             setFlag(true);
-                        } }>Players</li>
+                        } }>Player List</li>
                     </ul>
                 </div>
-                <div className='col-md-8 center mt-5 m-auto'>
-                    <table className='user-list mt-5' style={{display: flag ? "block" : "none" }}>
+                <div className='col-md-8 center'>
+                    <table className='user-list mt-5'/* style={{display: flag ? "block" : "none" }}*/>
                         <thead>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -93,56 +103,6 @@ function Admin() {
                             }
                         </tbody>
                     </table>
-
-                    <div className="tournament mt-5" style={{display: !flag ? "block" : "none "}}>
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Registered Game"
-                            className='mb-3 m-auto'
-                            value={registerGame}
-                            onChange={(e)=>{
-                                setRegisterGame(e.target.value);
-                            }}
-                        />
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Total Players"
-                            className='mb-3'
-                            value={totalPlayers}
-                            onChange={(e)=>{
-                                setTotalPlayers(e.target.value);
-                            }}
-                        />
-                        <TextField
-                            required
-                            id="outlined-required"
-                            label="Club Name"
-                            className='mb-3'
-                            value={clubName}
-                            onChange={(e)=>{
-                                setClubName(e.target.value);
-                            }}
-                        />
-                        <TextField
-                            id="outlined-password-input"
-                            label="Score"
-                            className='mb-3'
-                            value={score}
-                            onChange={(e)=>{
-                                setScore(e.target.value);
-                            }}
-                        />
-
-                        <DatePicker selected={date} onChange={(d) => {setDate(d);}} dateFormat="MM/dd/yyyy"/>
-
-                        <TimePicker value={time} onChange={(t) => {setTime(t);}} dateFormat="MM/dd/yyyy"/>
-                    </div>
-                    <div className='row mt-3'>
-                        <Button className='col-md-3 m-auto' variant="contained" color="error" onClick={() => {}}>Back</Button>
-                        <Button className='col-md-3 m-auto' variant="contained" color="success" style={{display: !flag ? "block" : "none"}} onClick={() => { onTourRegister(); }}>Register</Button>
-                    </div>
                 </div>
             </div>
         </section>

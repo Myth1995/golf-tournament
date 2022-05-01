@@ -1,66 +1,123 @@
 
 import * as React from 'react';
-import { useState } from 'react';
 import axios from 'axios';
 import { serverUrl } from '../common';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Link, Grid, Checkbox, Box, Typography, Container, CssBaseline, Avatar, FormControlLabel } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="#">
+          Your Website
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
+
+const theme = createTheme();
 
 function Login() {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        let formData = {
+          email: data.get('email'),
+          password: data.get('password'),
+        };
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-
-    
-    const onLogin = () => {
-        let data = {
-            email: email,
-            password: password
-        }
-
-        axios.post(serverUrl + "/login", data)
+        axios.post(serverUrl + "/login", formData)
         .then((res)=>{
-
+            console.log(res);
+            debugger
+            if(res.data.status === "success") {
+                window.localStorage.user_name = res.data.user_name;
+                window.localStorage.email = res.data.email;
+                window.localStorage.hp_num = res.data.hp_num;
+                window.location.href = "/admin";
+            }
+            else if(res.data.status === "none") {
+                alert("Please valid email or password.");
+            }
         })
         .catch((err)=>{
 
         });
-    }
-
+      };
+    
     return (
         <section className='login' id="login">
-            <div className='m-container'>                
-                <div className='container main'>
-                    <div className='row'>
-                        <div className='col-md-4 col-sm-8 center mt-5 m-auto'>
-                            <div className='input-fields mt-5'>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Email"
-                                    className='mb-3'
-                                    value={email}
-                                    onChange={(e)=>{
-                                        setEmail(e.target.value);
-                                    }}
-                                />
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    label="Password"
-                                    value={password}
-                                    onChange={(e)=>{
-                                        setPassword(e.target.value);
-                                    }}
-                                />
-                                <a href='/' className="forget-pwd mt-2">Forget Password?</a>
-                                <div className='row mt-3'>
-                                    <Button className='col-md-6 m-auto' variant="contained" onClick={() => { onLogin(); }}>Login</Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                    >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        />
+                        <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        />
+                        <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
+                        />
+                        <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        >
+                        Sign In
+                        </Button>
+                        <Grid container>
+                        <Grid item xs>
+                            <Link href="#" variant="body2">
+                            Forgot password?
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="/signup" variant="body2">
+                            {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                        </Grid>
+                    </Box>
+                    </Box>
+                    <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Container>
+            </ThemeProvider>
         </section>
     );
 }

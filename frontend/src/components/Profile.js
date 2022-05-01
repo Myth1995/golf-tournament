@@ -12,6 +12,9 @@ function Profile() {
 
     const [tourList, setTourList] = React.useState([]);
     React.useEffect(()=>{
+        if(window.localStorage.user_name === "") {
+            window.location.href = "/";
+        }
         async function getUsers() {
             await axios.get(serverUrl + "/get-tours")
             .then((res)=>{
@@ -67,8 +70,8 @@ function Profile() {
                                             <tr key={index}>
                                                 <td>{index+1}</td>
                                                 <td>{tour.register_game}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{tour.date}</td>
+                                                <td>{tour.time}</td>
                                                 <td>{tour.score}</td>
                                                 <td></td>
                                             </tr>

@@ -18,6 +18,23 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
+routes.route('/login').post(function(req, res) {
+  let email = req.body.email, password = req.body.password;
+  User.findOne({email: email, password: password}, function (err, user) {
+    if(err) {
+      console.log("login", err);
+    }
+    else {
+      if(user != null) {
+        res.json({"status": "success", user_name: user.user_name, email: user.email, hp_num: user.hp_num});
+      }
+      else {
+        res.json({"status": "none"});
+      }
+    }
+  });
+});
+
 routes.route('/add-user').post(function(req, res) {
   let user = new User(req.body);
   user.save()

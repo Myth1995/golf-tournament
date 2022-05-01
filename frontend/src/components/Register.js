@@ -1,183 +1,102 @@
 
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, TextField, MenuItem } from '@mui/material';
+import { serverUrl } from '../common';
+import { Button, TextField, Chip, Box, Grid } from '@mui/material';
 import DatePicker from 'react-datepicker';  
-import { serverUrl } from '../common';   
-import "react-datepicker/dist/react-datepicker.css";  
-
-const genderInfo = [
-    {
-      value: 'male',
-      label: 'Male',
-    },
-    {
-      value: 'female',
-      label: 'Female',
-    }
-  ];
+import TimePicker from 'react-time-picker';
+import "react-datepicker/dist/react-datepicker.css";
 
 function Register() {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("");
-    const [playerID, setPlayerID] = useState("");
-    const [hpNum, setHpNum] = useState("");
-    const [birthDate, setBirthDate] = useState(new Date());
-    const [age, setAge] = useState("");
-    const [gender, setGender] = useState("");
-    const [email, setEmail] = useState("");
-
-    const onRegister = () => {
-        let data = {
-            first_name: firstName,
-            last_name: lastName,
-            user_name: userName,
-            password: password,
-            player_id: playerID,
-            hp_num: hpNum,
-            birth_date: birthDate,
-            age: age,
-            gender: gender,
-            email: email
+    useEffect(()=>{
+        if(window.localStorage.user_name === "") {
+            window.location.href = "/";
         }
-        axios.post(serverUrl + '/add-user', data)
+    }, []);
+
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState("10:00");
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        
+        // if(registerGame === "" || score === "" || clubName === "" || totalPlayers === "" ) {
+        //     alert("Please input all informations!");
+        //     return;
+        // }
+        let data = {
+            register_game: formData.get('registerGame'),
+            score: formData.get('score'),
+            club_name: formData.get('clubName'),
+            total_players: formData.get('totalPlayers'),
+            date: date.toLocaleDateString(),
+            time: formData.get('time')
+        }
+        console.log(data);
+
+        axios.post(serverUrl + "/add-tour", data)
         .then((res)=>{
-            if(res.status === 200) {
-                data.password = '';
-                window.localStorage.first_name = firstName;
-                window.localStorage.last_name = lastName;
-                window.localStorage.user_name = userName;
-                window.localStorage.player_id = playerID;
-                window.localStorage.hp_num = hpNum;
-                window.localStorage.age = age;
-                window.localStorage.gender = gender;
-                window.localStorage.birthDate = birthDate;
-                window.localStorage.email = email;
-                window.location.href = "/profile"
-            }
+            // window.location.href = "/profile"
+
         })
         .catch((err)=>{
 
         });
     }
+
     return (
         <section className='register' id="register">
-            <div className='m-container'>
-                <div className='container main'>
-                    <div className='row'>
-                        <div className='col-md-4 col-sm-8 mt-5 m-auto'>
-                            <div className='row mt-5 m-auto'>
+            <div className='container'>
+                <div className='col-md-8 center mt-5 m-auto'>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Grid container xs={6} spacing={3} sx={{mx: "auto"}}>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
                                     id="outlined-required"
-                                    label="First Name"
-                                    className='mb-3 m-auto'
-                                    value={firstName}
-                                    onChange={(e)=>{
-                                        setFirstName(e.target.value);
-                                    }}
+                                    label="Registered Game"
+                                    name="registerGame"
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
                                     id="outlined-required"
-                                    label="Last Name"
-                                    className='mb-3'
-                                    value={lastName}
-                                    onChange={(e)=>{
-                                        setLastName(e.target.value);
-                                    }}
+                                    label="Total Players"
+                                    name="totalPlayers"
+                                    type="number"
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
-                                    required
                                     id="outlined-required"
-                                    label="UserName"
-                                    className='mb-3'
-                                    value={userName}
-                                    onChange={(e)=>{
-                                        setUserName(e.target.value);
-                                    }}
+                                    label="Club Name"
+                                    name="clubName"
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
                                 <TextField
                                     id="outlined-password-input"
-                                    label="Password"
-                                    type="password"
-                                    autoComplete="current-password"
+                                    label="Score"
                                     className='mb-3'
-                                    value={password}
-                                    onChange={(e)=>{
-                                        setPassword(e.target.value);
-                                    }}
+                                    name="score"
                                 />
-
-                                <TextField
-                                    id="outlined-playerid-input"
-                                    label="Player Id"
-                                    className='mb-3'
-                                    value={playerID}
-                                    onChange={(e)=>{
-                                        setPlayerID(e.target.value);
-                                    }}
-                                />
-
-                                <TextField
-                                    id="outlined-hpnum-input"
-                                    label="HP Num"
-                                    className='mb-3'
-                                    value={hpNum}
-                                    onChange={(e)=>{
-                                        setHpNum(e.target.value);
-                                    }}
-                                />
-                                
-                                <TextField
-                                    id="outlined-age-input"
-                                    type="number"
-                                    label="Age"
-                                    className='my-3'
-                                    value={age}
-                                    onChange={(e)=>{
-                                        setAge(e.target.value);
-                                    }}
-                                />
-                                <TextField
-                                    id="outlined-select-currency"
-                                    className='mb-3'
-                                    select
-                                    label="Gender"
-                                    value={gender}
-                                    onChange={(e)=>{
-                                        setGender(e.target.value);
-                                    }}
-                                    >
-                                    {genderInfo.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                        {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                                <TextField
-                                    id="outlined-email-input"
-                                    type="email"
-                                    label="Email Id"
-                                    className='mb-3'
-                                    value={email}
-                                    onChange = {(e)=>{
-                                        setEmail(e.target.value);
-                                    }}
-                                />
-                                <DatePicker selected={birthDate} onChange={(date) => {setBirthDate(date);}} dateFormat="MM/dd/yyyy"/>
-                                <div className='row mt-3'>
-                                    <Button className='col-md-4 m-auto' variant="contained" onClick={() => {
-                                        window.location.href = "/"
-                                    }}>Back</Button>
-                                    <Button className='col-md-4 m-auto' variant="contained" onClick={() => onRegister()}>Register</Button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Chip label="Play Date" />
+                                <DatePicker selected={date} onChange={(d) => {setDate(d);}} dateFormat="MM/dd/yyyy"/>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Chip label="Play Time" />
+                                <TimePicker value={time} onChange={(t) => {setTime(t);}} />
+                            </Grid>
+                        </Grid>
+                        <Grid container xs={6} spacing={3} sx={{mx: "auto", mt: 2}}>
+                            <Grid item xs={12}>
+                                <Button type="submit" sx={{mx: "auto"}} variant="contained" color="success">Register</Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
                 </div>
             </div>
         </section>

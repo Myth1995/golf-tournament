@@ -18,10 +18,10 @@ let User = new Schema({
         type: String
     },
     hp_num: {
-        type: String
+        type: Number
     },
     age: {
-        type: String
+        type: Number
     },
     gender: {
         type: String
@@ -30,7 +30,7 @@ let User = new Schema({
         type: String
     },
     birth_date: {
-        type: Date
+        type: String
     }
 });
 module.exports = mongoose.model('User', User);
