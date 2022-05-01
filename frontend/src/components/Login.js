@@ -33,7 +33,6 @@ function Login() {
         axios.post(serverUrl + "/login", formData)
         .then((res)=>{
             console.log(res);
-            debugger
             if(res.data.status === "success") {
                 window.localStorage.user_name = res.data.user_name;
                 window.localStorage.email = res.data.email;

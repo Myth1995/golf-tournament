@@ -1,9 +1,7 @@
-
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { serverUrl } from '../common';
-import "react-datepicker/dist/react-datepicker.css";
 
 function Admin() {
     // const [flag, setFlag] = useState(true);
