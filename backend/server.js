@@ -79,6 +79,17 @@ routes.route('/get-tours').get(function(req, res) {
   });
 });
 
+routes.route('/get-leaderboard').get(function(req, res) {
+  User.find( function (err, data) {
+    if(err) {
+      console.log("get-leaderboard", err);
+    }
+    else {
+      res.json(data);
+    }
+  }).sort({hp_num: -1});
+});
+
 app.use('/', routes);
 
 app.listen(PORT, function() {

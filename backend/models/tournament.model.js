@@ -6,13 +6,13 @@ let Tournament = new Schema({
         type: String
     },
     score: {
-        type: String
+        type: Number
     },
     club_name: {
         type: String
     },
     total_players: {
-        type: String
+        type: Number
     },
     date: {
         type: String

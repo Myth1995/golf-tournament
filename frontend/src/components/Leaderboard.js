@@ -1,42 +1,29 @@
-
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { serverUrl } from '../common';
 import "react-datepicker/dist/react-datepicker.css";
 
-function Admin() {
-    // const [flag, setFlag] = useState(true);
-    const [userList, setUserList] = useState([]);
+function Leaderboard() {
+    const [dataList, setDataList] = useState([]);
     useEffect(()=>{
         if(window.localStorage.user_name === "") {
             window.location.href = "/";
         }
-        async function getUsers() {
-            await axios.get(serverUrl + "/get-users")
+        async function getDatas() {
+            await axios.get(serverUrl + "/get-leaderboard")
             .then((res)=>{
-                setUserList(res.data);
+                setDataList(res.data);
             })
-            console.log(userList);
         }
-        getUsers();
+        getDatas();
     }, []);
 
     return (
         <section className='admin' id="admin">
-            <div className='container m-auto'>
-                <div className='d-flex admin-nav'>
-                    <ul>
-                        {/* <li onClick={ ()=>{
-                            setFlag(false);
-                        } }>Register Tournament</li> */}
-                        <li onClick={ ()=>{
-                            // setFlag(true);
-                        } }>Player List</li>
-                    </ul>
-                </div>
-                <div className='col-md-8 center'>
-                    <table className='user-list mt-5'/* style={{display: flag ? "block" : "none" }}*/>
+            <div className='container'>
+                <div className='col-md-8 m-auto'>
+                    <table className='user-list mt-5'>
                         <thead>
                             <th>First Name</th>
                             <th>Last Name</th>
@@ -50,7 +37,7 @@ function Admin() {
                         </thead>
                         <tbody>
                             {
-                                userList.map((user, index)=>(
+                                dataList.map((user, index)=>(
                                     <tr key={index}>
                                         <td>{user.first_name}</td>
                                         <td>{user.last_name}</td>
@@ -72,4 +59,4 @@ function Admin() {
     );
 }
 
-export default Admin;
+export default Leaderboard;
