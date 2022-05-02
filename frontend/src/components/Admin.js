@@ -25,12 +25,13 @@ function Admin() {
             <div className='container m-auto'>
                 <div className='d-flex admin-nav'>
                     <ul>
-                        {/* <li onClick={ ()=>{
-                            setFlag(false);
-                        } }>Register Tournament</li> */}
                         <li onClick={ ()=>{
                             // setFlag(true);
                         } }>Player List</li>
+                        <li onClick={ ()=>{
+                            window.location.href = "/register";
+                            // setFlag(false);
+                        } }>Tournament</li>
                     </ul>
                 </div>
                 <div className='col-md-8 center'>

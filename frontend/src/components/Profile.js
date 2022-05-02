@@ -71,7 +71,7 @@ function Profile() {
                                                 <td>{tour.register_game}</td>
                                                 <td>{tour.date}</td>
                                                 <td>{tour.time}</td>
-                                                <td><a href="/leaderboard">{tour.score}</a></td>
+                                                <td><a href="/leaderboard">Leaderboard</a></td>
                                                 <td></td>
                                             </tr>
                                         ))

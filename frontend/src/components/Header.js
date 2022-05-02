@@ -42,7 +42,6 @@ function Header() {
                                     }
                                     <Nav.Link className='n-link' href="/signup">SIGNUP</Nav.Link>
                                     {showFlag && <Nav.Link className='n-link' href="/profile">PROFILE</Nav.Link>}
-                                    {showFlag && <Nav.Link className='n-link' href="/register">REGISTER</Nav.Link>}
                                     {showFlag && <Nav.Link className='n-link logout' onClick={()=>{ onLogout(); }}>LOGOUT</Nav.Link>}
                                 </Nav>
                             </Navbar.Collapse>

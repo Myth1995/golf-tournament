@@ -38,7 +38,7 @@ function Register() {
 
         axios.post(serverUrl + "/add-tour", data)
         .then((res)=>{
-            // window.location.href = "/profile"
+            window.location.href = "/profile"
 
         })
         .catch((err)=>{
@@ -49,14 +49,15 @@ function Register() {
     return (
         <section className='register' id="register">
             <div className='container'>
-                <div className='col-md-8 center mt-5 m-auto'>
+                <div className='col-md-6 center mt-5 m-auto'>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container xs={6} spacing={3} sx={{mx: "auto"}}>
+                        <Grid container spacing={2} sx={{mx: "auto"}}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     id="outlined-required"
                                     label="Registered Game"
                                     name="registerGame"
+                                    fullWidth
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -65,6 +66,7 @@ function Register() {
                                     label="Total Players"
                                     name="totalPlayers"
                                     type="number"
+                                    fullWidth
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -72,30 +74,31 @@ function Register() {
                                     id="outlined-required"
                                     label="Club Name"
                                     name="clubName"
+                                    fullWidth
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     id="outlined-password-input"
-                                    label="Score"
+                                    label="Score Format"
                                     className='mb-3'
                                     name="score"
+                                    fullWidth
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} sx={{display: "flex"}}>
                                 <Chip label="Play Date" />
                                 <DatePicker selected={date} onChange={(d) => {setDate(d);}} dateFormat="MM/dd/yyyy"/>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} sx={{display: "flex"}}>
                                 <Chip label="Play Time" />
                                 <TimePicker value={time} onChange={(t) => {setTime(t);}} />
                             </Grid>
-                        </Grid>
-                        <Grid container xs={6} spacing={3} sx={{mx: "auto", mt: 2}}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} sm={4} sx={{mx: "auto", display: "flex"}}>
                                 <Button type="submit" sx={{mx: "auto"}} variant="contained" color="success">Register</Button>
                             </Grid>
                         </Grid>
+                        
                     </Box>
                 </div>
             </div>
